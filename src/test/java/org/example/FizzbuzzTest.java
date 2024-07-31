@@ -1,6 +1,6 @@
 package org.example;
 
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
 
@@ -33,4 +33,18 @@ class FizzbuzzTest {
     }
 
 
+    static class ValidBracketTest {
+
+        @ParameterizedTest
+        @ValueSource(strings = {"{}", "{{}}", "[{()}]", "[[]]", "{{a}}"})
+        public void testValidBracket(String chars) {
+            Assertions.assertTrue(ValidBracket.validBrackets(chars));
+        }
+
+        @ParameterizedTest
+        @ValueSource(strings = {"[]]", "{}}", "[())", "(()", "}{"})
+        public void testInValidBracket(String chars) {
+            Assertions.assertFalse(ValidBracket.validBrackets(chars));
+        }
+    }
 }
